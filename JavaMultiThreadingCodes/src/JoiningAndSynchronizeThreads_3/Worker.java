@@ -52,7 +52,7 @@ public class Worker {
                 }
             }
         });
-        thread1.start();
+        
         Thread thread2 = new Thread(new Runnable() {
             public void run() {
                 for (int i = 0; i < 10; i++) {
@@ -64,7 +64,9 @@ public class Worker {
                 }
             }
         });
-        thread2.start();
+        
+        thread1.start();
+        
 
         /**
          * Join Threads: Finish until thread finishes execution, then progress
@@ -75,7 +77,12 @@ public class Worker {
          */
         try {
             thread1.join();
+            
+            //should be after "thread1.join()"
+            thread2.start();
+            
             thread2.join();
+            
         } catch (InterruptedException ignored) {}
         System.out.println("Count is: " + count);
     }
